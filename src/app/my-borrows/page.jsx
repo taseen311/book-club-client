@@ -91,7 +91,7 @@ export default function MyBorrows() {
                             className="border rounded-xl p-4 shadow-sm"
                         >
                             <Image
-                                src={borrow.bookImage}
+                                src={borrow.bookImage?.trim()}
                                 alt={borrow.bookTitle}
                                 width={400}
                                 height={250}
@@ -110,6 +110,12 @@ export default function MyBorrows() {
                             <p className="text-gray-600 mt-1">
                                 Return Date: {borrow.returnDate}
                             </p>
+                            <button
+                                onClick={() => handleReturn(borrow._id)}
+                                className="bg-[#1B4332] text-white px-4 py-2 rounded-lg hover:bg-[#2D6A4F] mt-4 w-full"
+                            >
+                                Return Book
+                            </button>
                         </div>
                     ))}
                 </div>
