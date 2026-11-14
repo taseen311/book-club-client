@@ -92,7 +92,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="border-t border-white/10 py-6 text-center text-xs text-white/50 sm:flex sm:items-center sm:justify-between sm:text-sm">
-                    <p>© {new Date().getFullYear()} BookNook. All rights reserved.</p>
+                    <p>© 2026 PSTUReadingCLUB . All rights reserved.</p>
                     <p className="mt-2 sm:mt-0">
                         Made with ❤️ for book lovers.
                     </p>
