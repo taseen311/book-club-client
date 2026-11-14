@@ -41,6 +41,34 @@ export default function MyBorrows() {
         fetchBorrows();
     }, []);
 
+    const handleReturn = async (id) => {
+        try {
+            const { data, error } = await authClient.token();
+
+            if (error || !data?.token) {
+                throw new Error("Please login first");
+            }
+
+            const res = await fetch(`http://localhost:8000/borrows/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${data.token}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to return book");
+            }
+
+            setBorrows((previousBorrows) =>
+                previousBorrows.filter((borrow) => borrow._id !== id)
+            );
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     if (loading) {
         return <p className="text-center py-20">Loading your borrows...</p>;
     }
