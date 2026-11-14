@@ -1,4 +1,5 @@
 // import BorrowModal from "@/components/BorrowModal";
+export const instant = false;
 import BorrowButton from "../../../components/BorrowButton";
 import Image from "next/image";
 

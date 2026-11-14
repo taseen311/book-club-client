@@ -1,6 +1,6 @@
 
 "use client";
-
+import { authClient } from "../lib/auth-client";
 import { useState } from "react";
 
 export default function BorrowModal({ book, onClose }) {
@@ -9,6 +9,15 @@ export default function BorrowModal({ book, onClose }) {
 
     const handleBorrow = async (e) => {
         e.preventDefault();
+
+        const { data, error } = await authClient.token();
+
+        if (error || !data?.token) {
+            alert("Authentication failed. Please login again.");
+            return;
+        }
+
+        const token = data.token;
 
         const borrowInfo = {
             bookId: book._id,
@@ -22,6 +31,7 @@ export default function BorrowModal({ book, onClose }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(borrowInfo),
             });

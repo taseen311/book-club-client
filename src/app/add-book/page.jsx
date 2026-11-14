@@ -1,6 +1,6 @@
 
 "use client";
-
+import { authClient } from "../../lib/auth-client";
 import { useState } from "react";
 
 export default function AddBookPage() {
@@ -27,10 +27,16 @@ export default function AddBookPage() {
         e.preventDefault();
 
         try {
+            const { data, error } = await authClient.token();
+
+            if (error || !data?.token) {
+                throw new Error("Please login first");
+            }
             const res = await fetch("http://localhost:8000/books", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${data.token}`,
                 },
                 body: JSON.stringify({
                     ...formData,
@@ -38,7 +44,7 @@ export default function AddBookPage() {
                 }),
             });
 
-            const data = await res.json();
+            const result = await res.json();
 
             if (!res.ok) {
                 throw new Error(data.message || "Failed to add book");
