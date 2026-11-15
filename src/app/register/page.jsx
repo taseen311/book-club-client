@@ -52,6 +52,17 @@ export default function RegisterPage() {
                 return;
             }
 
+            const { error: loginError } = await authClient.signIn.email({
+                email,
+                password,
+            });
+
+            if (loginError) {
+                setMessage("Account created! Please login manually.");
+                router.push("/login");
+                return;
+            }
+
             setMessage("Account created successfully! Redirecting...");
 
             setTimeout(() => {
