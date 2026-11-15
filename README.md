@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 PSTUReadingCLUB
 
-## Getting Started
+### A Community Library Management & Book Borrowing Platform
 
-First, run the development server:
+**Discover Books. Share Knowledge. Build a Reading Community.**
+
+PSTUReadingCLUB is a modern library management platform designed to make book discovery, collection management, and borrowing easier. Readers can explore available books, borrow their favorite titles, manage their personal book collections, and keep track of borrowed books — all in one place.
+
+---
+
+## 🌐 Live Demo
+
+🔗 **Live Website:** Add your deployed website URL here.
+
+---
+
+## ✨ Key Features
+
+- 🔐 **Secure Authentication:** Register and log in using email and password, with Google authentication support.
+- 📚 **Explore Books:** Browse the available book collection and view individual book details.
+- ➕ **Add New Books:** Authenticated users can add books to the library.
+- ✏️ **Manage Your Collection:** Edit or delete books added by you.
+- 📖 **Borrow Books:** Borrow books by selecting borrowing and return dates.
+- 🔄 **Return Books:** Return borrowed books and update their availability.
+- 📦 **Smart Stock Management:** Available book copies automatically decrease on borrowing and increase on returning.
+- 🚫 **Duplicate Borrow Prevention:** Prevents users from borrowing the same book multiple times simultaneously.
+- 👤 **Personal Dashboard:** View your added books and borrowing history.
+- 🔒 **Protected Routes & APIs:** Private pages and backend operations require authentication.
+- 🔔 **Toast Notifications:** Get instant feedback for important actions.
+- 📱 **Responsive Design:** Designed to work across desktop, tablet, and mobile devices.
+
+---
+
+## 🛠️ Technologies Used
+
+| Category       | Technologies             |
+| -------------- | ------------------------ |
+| Frontend       | Next.js, React.js        |
+| Styling        | Tailwind CSS, DaisyUI    |
+| Authentication | Better Auth              |
+| Backend        | Node.js, Express.js      |
+| Database       | MongoDB                  |
+| API Security   | JWT, JOSE                |
+| Notifications  | React Hot Toast          |
+| UI Components  | Swiper.js, Next.js Image |
+| Deployment     | Vercel / Backend Hosting |
+
+---
+
+## 📂 Project Structure
+
+```text
+book-club-client/
+│
+├── public/
+│
+├── src/
+│   ├── app/
+│   │   ├── login/
+│   │   ├── register/
+│   │   ├── books/
+│   │   ├── add-book/
+│   │   ├── my-books/
+│   │   ├── my-borrows/
+│   │   ├── edit-book/
+│   │   ├── loading.jsx
+│   │   ├── not-found.jsx
+│   │   ├── layout.jsx
+│   │   └── page.jsx
+│   │
+│   ├── components/
+│   ├── lib/
+│   └── proxy.js
+│
+├── .env.local
+├── package.json
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone YOUR_CLIENT_REPOSITORY_URL
+```
+
+### 2. Navigate to the Project
+
+```bash
+cd book-club-client
+```
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+BETTER_AUTH_SECRET=your_secret_key
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8000
+MONGO_DB_URI=your_mongodb_connection_string
+```
+
+Use the actual environment variable names required by your application and never commit real secrets.
+
+### 5. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and visit:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔗 Backend Repository
 
-To learn more about Next.js, take a look at the following resources:
+The backend is maintained separately using Express.js and MongoDB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Server Repository:**
+[https://github.com/taseen311/book-club-server](https://github.com/taseen311/book-club-server)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The backend handles book management, borrowing operations, stock updates, and JWT-protected API requests.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔐 Security & Authentication
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Better Auth handles user authentication.
+- JWT tokens are used to authorize protected backend requests.
+- Private API operations verify the authenticated user's identity.
+- Users can manage only their own added books.
+- Borrowing records are associated with the authenticated user.
+
+---
+
+## 🎯 Project Goals
+
+PSTUReadingCLUB aims to create a convenient digital reading community where users can discover books, manage collections, and enjoy a smoother borrowing experience.
+
+**Read More. Discover More. Connect Through Books.**
+
+---
+
+\<p align="center">
+&#x20; Made with ❤️ for readers and book lovers.
+&#x20; \<br />
+&#x20; \<strong>PSTUReadingCLUB\</strong>
+\</p>
+
