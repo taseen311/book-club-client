@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { authClient } from "../../lib/auth-client";
 
 export default function LoginPage() {
@@ -11,7 +12,7 @@ export default function LoginPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e) => {
@@ -26,24 +27,33 @@ export default function LoginPage() {
             });
 
             if (error) {
-                setMessage(error.message);
+                toast.error(error.message);
                 return;
             }
 
+            toast.success("Login successful!");
             router.push("/");
             router.refresh();
         } catch (error) {
-            setMessage("Something went wrong. Please try again.");
+            toast.error("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
     };
 
     const handleGoogleLogin = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-            callbackURL: "/",
-        });
+        try {
+            const { error } = await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+
+            if (error) {
+                toast.error(error.message);
+            }
+        } catch (error) {
+            toast.error("Google login failed!");
+        }
     };
 
     return (
@@ -158,11 +168,11 @@ export default function LoginPage() {
                                 />
                             </div>
 
-                            {message && (
+                            {/* {message && (
                                 <p className="text-sm text-red-600 bg-red-50 rounded-lg p-3">
                                     {message}
                                 </p>
-                            )}
+                            )} */}
 
                             <button
                                 type="submit"

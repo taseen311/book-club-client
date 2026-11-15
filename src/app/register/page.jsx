@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { authClient } from "../../lib/auth-client";
 
 export default function RegisterPage() {
@@ -16,7 +17,7 @@ export default function RegisterPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -26,14 +27,14 @@ export default function RegisterPage() {
         const hasLowercase = /[a-z]/.test(password);
 
         if (password.length < 6 || !hasUppercase || !hasLowercase) {
-            setMessage(
+            toast.error(
                 "Password must have at least 6 characters, one uppercase and one lowercase letter."
             );
             return;
         }
 
         if (password !== confirmPassword) {
-            setMessage("Passwords do not match!");
+            toast.error("Passwords do not match!");
             return;
         }
 
@@ -48,7 +49,7 @@ export default function RegisterPage() {
             });
 
             if (error) {
-                setMessage(error.message);
+                toast.error(error.message);
                 return;
             }
 
@@ -58,12 +59,12 @@ export default function RegisterPage() {
             });
 
             if (loginError) {
-                setMessage("Account created! Please login manually.");
+                toast.error("Account created! Please login manually.");
                 router.push("/login");
                 return;
             }
 
-            setMessage("Account created successfully! Redirecting...");
+            toast.success("Account created successfully!");
 
             setTimeout(() => {
                 router.push("/");
@@ -71,7 +72,7 @@ export default function RegisterPage() {
             }, 1500);
 
         } catch (error) {
-            setMessage("Something went wrong. Please try again.");
+            toast.error("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -222,11 +223,11 @@ export default function RegisterPage() {
                                 />
                             </div>
 
-                            {message && (
+                            {/* {message && (
                                 <p className="text-sm text-center text-red-600 bg-red-50 rounded-lg p-3">
                                     {message}
                                 </p>
-                            )}
+                            )} */}
 
                             <button
                                 type="submit"
