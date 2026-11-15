@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { authClient } from "../../lib/auth-client";
 
 export default function MyBooks() {
@@ -32,7 +33,7 @@ export default function MyBooks() {
                 setBooks(result);
 
             } catch (error) {
-                console.error(error);
+                toast.error(error.message || "Failed to fetch your books");
             } finally {
                 setLoading(false);
             }
@@ -69,9 +70,10 @@ export default function MyBooks() {
             setBooks((previousBooks) =>
                 previousBooks.filter((book) => book._id !== id)
             );
+            toast.success("Book deleted successfully!");
 
         } catch (error) {
-            console.error(error);
+            toast.error(error.message || "Failed to delete book");
         }
     };
 
