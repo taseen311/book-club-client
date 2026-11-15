@@ -18,7 +18,7 @@ function UserMenu({ user, onLogout }) {
         <div className="relative">
             <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-3 rounded-full border border-[#D8F3DC] bg-[#F7F8F2] p-1.5 pr-3 transition hover:bg-[#D8F3DC]"
+                className="group flex items-center gap-2.5 rounded-full border border-[#D8F3DC] bg-[#F7F8F2] p-1.5 pr-3 transition-all duration-300 hover:border-[#B7E4C7] hover:bg-[#D8F3DC]"
             >
                 {user.image ? (
                     <Image
@@ -27,48 +27,52 @@ function UserMenu({ user, onLogout }) {
                         width={38}
                         height={38}
                         unoptimized
-                        className="h-9 w-9 rounded-full object-cover"
+                        className="h-9 w-9 rounded-full object-cover ring-2 ring-white"
                     />
                 ) : (
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1B4332] font-bold text-white">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1B4332] text-sm font-bold text-white">
                         {initials}
                     </span>
                 )}
 
-                <span className="max-w-[110px] truncate text-sm font-semibold text-[#1B4332]">
+                <span className="max-w-[110px] truncate text-sm font-bold text-[#1B4332]">
                     {user.name}
                 </span>
 
-                <span className="text-xs text-[#2D6A4F]">
+                <span className="text-[10px] text-[#2D6A4F]">
                     {dropdownOpen ? "▲" : "▼"}
                 </span>
             </button>
 
             {dropdownOpen && (
-                <div className="absolute right-0 top-full z-50 mt-3 w-52 overflow-hidden rounded-xl border border-gray-100 bg-white py-2 shadow-xl">
-                    <div className="border-b border-gray-100 px-4 py-3">
-                        <p className="truncate font-semibold text-[#1B4332]">
+                <div className="absolute right-0 top-full z-[60] mt-3 w-64 overflow-hidden rounded-2xl border border-[#D8F3DC] bg-white shadow-[0_15px_45px_rgba(27,67,50,0.15)]">
+                    <div className="bg-[#F7F8F2] px-5 py-4">
+                        <p className="truncate text-sm font-bold text-[#1B4332]">
                             {user.name}
                         </p>
-                        <p className="truncate text-xs text-gray-500">
+                        <p className="mt-1 truncate text-xs text-gray-500">
                             {user.email}
                         </p>
                     </div>
 
-                    <Link
-                        href="/profile"
-                        onClick={() => setDropdownOpen(false)}
-                        className="block px-4 py-3 text-sm text-gray-700 transition hover:bg-[#F7F8F2] hover:text-[#2D6A4F]"
-                    >
-                        My Profile
-                    </Link>
+                    <div className="p-2">
+                        <Link
+                            href="/profile"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-[#F7F8F2] hover:text-[#1B4332]"
+                        >
+                            <span className="text-lg">👤</span>
+                            My Profile
+                        </Link>
 
-                    <button
-                        onClick={onLogout}
-                        className="w-full px-4 py-3 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50"
-                    >
-                        Logout
-                    </button>
+                        <button
+                            onClick={onLogout}
+                            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                        >
+                            <span className="text-lg">↪</span>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
@@ -79,7 +83,6 @@ export default function Navbar() {
     const router = useRouter();
 
     const [menuOpen, setMenuOpen] = useState(false);
-
     const [loggingOut, setLoggingOut] = useState(false);
 
     const { data: session, isPending } = authClient.useSession();
@@ -117,29 +120,33 @@ export default function Navbar() {
     };
 
     return (
-        <header className="sticky top-0 z-50 border-b border-[#D8F3DC] bg-white/95 shadow-sm backdrop-blur-md">
+        <header className="sticky top-0 z-50 border-b border-[#D8F3DC]/80 bg-white/95 shadow-[0_4px_20px_rgba(27,67,50,0.05)] backdrop-blur-xl">
 
-            <div className="mx-auto flex min-h-[76px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto flex min-h-[78px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
 
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="flex shrink-0 items-center gap-2 text-xl font-extrabold tracking-tight text-[#1B4332] sm:text-2xl"
+                    className="group flex shrink-0 items-center gap-2.5"
                 >
-                    <span className="text-3xl">📚</span>
-                    <span>
-                        PSTU<span className="text-[#2D6A4F]">Reading</span>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1B4332] text-2xl shadow-md transition duration-300 group-hover:-rotate-6 group-hover:bg-[#2D6A4F]">
+                        📚
+                    </span>
+
+                    <span className="text-lg font-black tracking-tight text-[#1B4332] sm:text-xl">
+                        PSTU
+                        <span className="text-[#2D6A4F]">Reading</span>
                         <span className="text-[#1B4332]">CLUB</span>
                     </span>
                 </Link>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden items-center gap-5 lg:flex xl:gap-7">
+                <nav className="hidden items-center gap-1 rounded-full border border-[#D8F3DC]/70 bg-[#F7F8F2] p-1.5 lg:flex xl:gap-2">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="whitespace-nowrap text-sm font-semibold text-gray-600 transition hover:text-[#2D6A4F] xl:text-base"
+                            className="whitespace-nowrap rounded-full px-4 py-2.5 text-[13px] font-bold text-gray-600 transition-all duration-300 hover:bg-[#1B4332] hover:text-white xl:px-5 xl:text-sm"
                         >
                             {link.name}
                         </Link>
@@ -148,9 +155,8 @@ export default function Navbar() {
 
                 {/* Desktop Authentication */}
                 <div className="hidden shrink-0 items-center gap-3 lg:flex">
-
                     {isPending ? (
-                        <span className="text-sm text-gray-400">
+                        <span className="text-sm font-medium text-gray-400">
                             Loading...
                         </span>
                     ) : user ? (
@@ -162,16 +168,16 @@ export default function Navbar() {
                         <>
                             <Link
                                 href="/login"
-                                className="rounded-xl border border-[#1B4332] px-5 py-2.5 text-sm font-semibold text-[#1B4332] transition hover:bg-[#F7F8F2]"
+                                className="rounded-full px-5 py-2.5 text-sm font-bold text-[#1B4332] transition hover:bg-[#F7F8F2]"
                             >
                                 Login
                             </Link>
 
                             <Link
                                 href="/register"
-                                className="rounded-xl bg-[#1B4332] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#2D6A4F]"
+                                className="rounded-full bg-[#1B4332] px-6 py-3 text-sm font-bold text-white shadow-md shadow-[#1B4332]/15 transition duration-300 hover:-translate-y-0.5 hover:bg-[#2D6A4F] hover:shadow-lg"
                             >
-                                Join Now
+                                Join Now <span className="ml-1">→</span>
                             </Link>
                         </>
                     )}
@@ -180,12 +186,14 @@ export default function Navbar() {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#D8F3DC] transition hover:bg-[#F7F8F2] lg:hidden"
+                    className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-[#D8F3DC] bg-[#F7F8F2] transition hover:bg-[#D8F3DC] lg:hidden"
                     aria-label="Toggle navigation menu"
                     aria-expanded={menuOpen}
                 >
                     <span
-                        className={`h-0.5 w-5 rounded-full bg-[#1B4332] transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""
+                        className={`h-0.5 w-5 rounded-full bg-[#1B4332] transition-all duration-300 ${menuOpen
+                                ? "translate-y-2 rotate-45"
+                                : ""
                             }`}
                     />
                     <span
@@ -193,7 +201,9 @@ export default function Navbar() {
                             }`}
                     />
                     <span
-                        className={`h-0.5 w-5 rounded-full bg-[#1B4332] transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""
+                        className={`h-0.5 w-5 rounded-full bg-[#1B4332] transition-all duration-300 ${menuOpen
+                                ? "-translate-y-2 -rotate-45"
+                                : ""
                             }`}
                     />
                 </button>
@@ -201,27 +211,29 @@ export default function Navbar() {
 
             {/* Mobile Navigation */}
             <div
-                className={`overflow-visible border-t border-[#D8F3DC] bg-white transition-all duration-300 lg:hidden ${menuOpen
-                    ? "max-h-[600px] opacity-100"
-                    : "max-h-0 overflow-hidden border-transparent opacity-0"
+                className={`overflow-visible border-t border-[#D8F3DC]/70 bg-white transition-all duration-300 lg:hidden ${menuOpen
+                        ? "max-h-[600px] opacity-100"
+                        : "max-h-0 overflow-hidden border-transparent opacity-0"
                     }`}
             >
-                <nav className="mx-auto flex max-w-[1440px] flex-col px-4 py-3 sm:px-6">
+                <nav className="mx-auto flex max-w-[1440px] flex-col px-4 py-4 sm:px-6">
 
-                    {navLinks.map((link) => (
+                    {navLinks.map((link, index) => (
                         <Link
                             key={link.href}
                             href={link.href}
                             onClick={() => setMenuOpen(false)}
-                            className="border-b border-gray-100 py-3 text-sm font-semibold text-gray-700 transition hover:pl-2 hover:text-[#2D6A4F]"
+                            className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-bold text-gray-700 transition hover:bg-[#F7F8F2] hover:text-[#1B4332] ${index !== 0 ? "mt-1" : ""
+                                }`}
                         >
                             {link.name}
+                            <span className="text-[#2D6A4F]">→</span>
                         </Link>
                     ))}
 
-                    <div className="py-4">
+                    <div className="mt-3 border-t border-[#D8F3DC] pt-4">
                         {isPending ? (
-                            <p className="text-sm text-gray-400">
+                            <p className="px-2 text-sm text-gray-400">
                                 Loading account...
                             </p>
                         ) : user ? (
@@ -242,7 +254,7 @@ export default function Navbar() {
                                 <Link
                                     href="/login"
                                     onClick={() => setMenuOpen(false)}
-                                    className="flex-1 rounded-xl border border-[#1B4332] py-2.5 text-center text-sm font-semibold text-[#1B4332] transition hover:bg-[#F7F8F2]"
+                                    className="flex-1 rounded-full border border-[#1B4332] py-3 text-center text-sm font-bold text-[#1B4332] transition hover:bg-[#F7F8F2]"
                                 >
                                     Login
                                 </Link>
@@ -250,9 +262,9 @@ export default function Navbar() {
                                 <Link
                                     href="/register"
                                     onClick={() => setMenuOpen(false)}
-                                    className="flex-1 rounded-xl bg-[#1B4332] py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#2D6A4F]"
+                                    className="flex-1 rounded-full bg-[#1B4332] py-3 text-center text-sm font-bold text-white transition hover:bg-[#2D6A4F]"
                                 >
-                                    Join Now
+                                    Join Now →
                                 </Link>
                             </div>
                         )}
@@ -262,4 +274,5 @@ export default function Navbar() {
         </header>
     );
 }
+
 
