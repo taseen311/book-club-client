@@ -2,6 +2,7 @@
 "use client";
 import { authClient } from "../lib/auth-client";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function BorrowModal({ book, onClose }) {
     const [borrowDate, setBorrowDate] = useState("");
@@ -13,7 +14,7 @@ export default function BorrowModal({ book, onClose }) {
         const { data, error } = await authClient.token();
 
         if (error || !data?.token) {
-            alert("Authentication failed. Please login again.");
+            toast.error("Authentication failed. Please login again.");
             return;
         }
 
@@ -39,16 +40,16 @@ export default function BorrowModal({ book, onClose }) {
             const data = await res.json();
 
             if (!res.ok) {
-                alert(data.message);
+                toast.error(data.message || "Failed to borrow book");
                 return;
             }
 
-            alert("Book borrowed successfully!");
+            toast.success("Book borrowed successfully!");
             onClose();
 
         } catch (error) {
             console.error("Borrow error:", error);
-            alert("Something went wrong!");
+            toast.error("Something went wrong!");
         }
     };
 

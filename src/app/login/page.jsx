@@ -17,7 +17,7 @@ export default function LoginPage() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setMessage("");
+        // setMessage("");
         setLoading(true);
 
         try {

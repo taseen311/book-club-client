@@ -21,7 +21,7 @@ export default function RegisterPage() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        setMessage("");
+        // setMessage("");
 
         const hasUppercase = /[A-Z]/.test(password);
         const hasLowercase = /[a-z]/.test(password);
