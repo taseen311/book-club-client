@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { authClient } from "../../lib/auth-client";
 
 export default function MyBorrows() {
@@ -32,7 +33,7 @@ export default function MyBorrows() {
                 setBorrows(result);
 
             } catch (error) {
-                console.error(error);
+                toast.error(error.message || "Failed to fetch your borrows");
             } finally {
                 setLoading(false);
             }
@@ -63,9 +64,9 @@ export default function MyBorrows() {
             setBorrows((previousBorrows) =>
                 previousBorrows.filter((borrow) => borrow._id !== id)
             );
-
+            toast.success("Book returned successfully!");
         } catch (error) {
-            console.error(error);
+            toast.error(error.message || "Failed to return book");
         }
     };
 
